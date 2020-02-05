@@ -19,7 +19,7 @@ pipeline {
         }
             stage('nexus') { 
             steps {
-            nexusPublisher nexusInstanceId: '1234',nexusRepositoryId: 'Myfirstrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipeline_nexus/target/jpetstore.war']], mavenCoordinate: [artifactId: 'jpetstore', groupId: 'org.mybatis', packaging: 'war', version: '2.5']]]
+            nexusPublisher nexusInstanceId: '1234',nexusRepositoryId: 'Myfirstrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipeline_nexus/target/jpetstore.war']], mavenCoordinate: [artifactId: 'jpetstore', groupId: 'org.mybatis', packaging: 'war', version: '2.7']]]
             }
           } 
        }
