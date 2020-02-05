@@ -1,0 +1,28 @@
+pipeline {
+    agent any 
+    stages {
+        stage('compile stage') { 
+            steps {
+             git 'https://github.com/mybatis/jpetstore-6.git'
+            sh 'mvn clean compile'
+             }
+        }
+             stage('package') { 
+            steps {
+            sh 'mvn clean package'
+             }
+        }
+             stage('Sonaqube') { 
+            steps {
+            sh 'mvn sonar:sonar -Dsonar.host.url=http://20.190.250.30:9000/ -Dsonar.username=admin -Dsonar.password=admin -Dsonar.projectkey=decodingdevops'
+            }
+        }
+            stage('nexus') { 
+            steps {
+            nexusPublisher nexusInstanceId: '1234',nexusRepositoryId: 'Myfirstrepo', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: '/var/lib/jenkins/workspace/pipeline_nexus/target/jpetstore.war']], mavenCoordinate: [artifactId: 'jpetstore', groupId: 'org.mybatis', packaging: 'war', version: '2.5']]]
+            }
+          } 
+       }
+       
+    }  
+    
